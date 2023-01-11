@@ -43,43 +43,43 @@ average = price_level.sum / price_level.size.to_f
 
 puts "========= CREATION DES MARKETS SCRAPE ========="
 
-# market_id = 2
+market_id = 2
 
-# 7000.times do
-#   url = "https://www.quechoisir.org/carte-interactive-drives-n21243/drive-magasin-dm#{market_id}/"
+7000.times do
+  url = "https://www.quechoisir.org/carte-interactive-drives-n21243/drive-magasin-dm#{market_id}/"
 
-#   html_file = URI.open(url).read
-#   html_doc = Nokogiri::HTML(html_file)
+  html_file = URI.open(url).read
+  html_doc = Nokogiri::HTML(html_file)
 
-#   title = html_doc.search("h1").first.text.strip
+  title = html_doc.search("h1").first.text.strip
 
-#   unless title == "Comparateur gratuit des supermarchés"
+  unless title == "Comparateur gratuit des supermarchés"
 
-#     brand = html_doc.search('b').first.text.strip
-#     address1 = html_doc.search('b').first.next
-#     address1 = address1.next while address1.name != 'br'
+    brand = html_doc.search('b').first.text.strip
+    address1 = html_doc.search('b').first.next
+    address1 = address1.next while address1.name != 'br'
 
-#     address1 = address1.next
-#     address2 = address1.next.next.text.split.join(' ')
-#     address = "#{address1.text.split.join(' ')} #{address2}"
+    address1 = address1.next
+    address2 = address1.next.next.text.split.join(' ')
+    address = "#{address1.text.split.join(' ')} #{address2}"
 
-#     week = ''
+    week = ''
 
-#     html_doc.search('.geo-table').first.children.each do |elem|
-#       week += "#{elem.children.first.text.strip}:#{elem.children[1].text.strip}/"
-#     end
+    html_doc.search('.geo-table').first.children.each do |elem|
+      week += "#{elem.children.first.text.strip}:#{elem.children[1].text.strip}/"
+    end
 
-#     price = html_doc.search('.geo-table')[1].children[1].children[1].text.strip.split.first.to_i
+    price = html_doc.search('.geo-table')[1].children[1].children[1].text.strip.split.first.to_i
 
-#     Market.create!(brand: brand, address: address, opening_hours: week, price_level: price, ping_gris: false )
+    Market.create!(brand: brand, address: address, opening_hours: week, price_level: price, ping_gris: false )
 
-#     puts "#{market_id} :#{address} added"
-#   end
-#   market_id += 1
-#   sleep(1)
-# end
+    puts "#{market_id} :#{address} added"
+  end
+  market_id += 1
+  sleep(1)
+end
 
-Market.create!(brand: "Auchan", address: "48, Bis Rue Saint Sébastien Lille", price_level: 258 / average, opening_hours: "pas d'horaires", phone_number: "0320568938", ping_gris: false)
+#Market.create!(brand: "Auchan", address: "48, Bis Rue Saint Sébastien Lille", price_level: 258 / average, opening_hours: "pas d'horaires", phone_number: "0320568938", ping_gris: false)
 # Market.create!(brand: "Auchan", address: "5, Rue de Saint André Lille", price_level: 263 / average, opening_hours: "pas d'horaires", phone_number: "0366191023", ping_gris: false)
 # Market.create!(brand: "Carrefour Market", address: "Rue du Pré Catelan 59110 La Madeleine", price_level: 240 / average, opening_hours: "pas d'horaires", phone_number: "0320316964", ping_gris: false)
 # Market.create!(brand: "Leclerc", address: "2, Place Louise de Bettignies Lille", price_level: 228 / average, opening_hours: "pas d'horaires", phone_number: "0967351502", ping_gris: false)
